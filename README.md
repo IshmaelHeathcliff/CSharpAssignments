@@ -1,9 +1,14 @@
-# .net(c#)使用
+## C# Assignments
 
+### .NET Core
+
+```shell
 dotnet new console
-
 dotnet restore
-
 dotnet build
+```
 
-然后打开vscode
+### Visual Studio
+
+打开Assignments.sln解决方法或*.csproj项目
+
