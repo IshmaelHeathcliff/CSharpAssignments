@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.Runtime.Remoting.Messaging;
 
 namespace Test
 {
-    class Program
+    class Test
     {
-        static void Main(string[] args)
+        public enum Operator
         {
-            string input = Console.ReadLine();
-            if (input == "") Console.WriteLine("The input is blank");
-            if (input == null) Console.WriteLine("The input is null");
+            Plus, Minus, Multiply, Divide
+        }
 
-            Console.ReadKey();
+        private static void Main()
+        {
+            Operator operators = Operator.Divide;
+            Console.WriteLine((int)operators);
         }
     }
 }

@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 
 namespace APT
 {
@@ -6,61 +8,127 @@ namespace APT
     {
         static void Main(string[] args)
         {
-            AbstractList<int> adt = new AbstractList<int>(1);
-            adt.Add(2);
-            adt.Add(3);
-            Console.WriteLine(adt.GetValue(0));
-            Console.WriteLine(adt.GetValue(1));
-            Console.WriteLine(adt.GetValue(2));
             Console.ReadKey();
         }
     }
 
-    class AbstractList<T> where T : new()
+    class Node<T>
     {
-        private T val;
-        private AbstractList<T> next;
-        public T Value
+        public T Value { get; set; }
+        public Node<T> Next { get; set; }
+
+        public Node() : this(default) { }
+        public Node(T v) : this(v, null) { }
+        public Node(T v, Node<T> node)
         {
-            get { return this.val; }
-            set { this.val = value; }
+            this.Value = v;
+            this.Next = node;
+        }
+    }
+
+    class SLList<T> : IList<T>
+    {
+        private Node<T> head;
+        public Node<T> Head
+        { get { return head; }
+          set { head = value; }
         }
 
-        public AbstractList<T> Next
+        public SLList(T data)
         {
-            get { return this.next; }
-            set { this.next = value; }
+            head = new Node<T>(data);
         }
 
-
-        public AbstractList() : this(new T()) { }
-
-        public AbstractList(T v)
+        public T this[int index]
         {
-            this.val = v;
-            this.next = null;
+            get => this.GetValueAt(index);
+            set => this.SetValueAt(index, value);
         }
+
+        private T GetValueAt(int index)
+        {
+            Node<T> current = head;
+            if (index == 0) return current.Value;
+            while (current.Next != null)
+            {
+                index--;
+                current = current.Next;
+                if (index == 0) return current.Value;
+            }
+            throw new IndexOutOfRangeException();
+        }
+
+        private void SetValueAt(int index, T data)
+        {
+            Node<T> current = head;
+            if (index == 0) current.Value = data;
+            while(current.Next != null)
+            {
+                index--;
+                current = current.Next;
+                if (index == 0) current.Value = data;
+            }
+            throw new IndexOutOfRangeException();
+        }
+
+        public int Count => throw new NotImplementedException();
+
+        public bool IsReadOnly => throw new NotImplementedException();
 
         public void Add(T v)
         {
-            AbstractList<T> current = this;
+            Node<T> current = Head;
             while (current.Next != null)
             {
                 current = current.Next;
             }
-            AbstractList<T> nextValue = new AbstractList<T>(v);
+            Node<T> nextValue = new Node<T>(v);
             current.Next = nextValue;
         }
 
-        public T GetValue(int index)
+        public void Clear()
         {
-            AbstractList<T> current = this;
-            for (int i=0; i < index; i++)
-            {
-                current = current.Next;
-            }
+            throw new NotImplementedException();
+        }
 
-            return current.Value;
+        public bool Contains(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void CopyTo(T[] array, int arrayIndex)
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerator<T> GetEnumerator()
+        {
+            throw new NotImplementedException();
+        }
+
+        public int IndexOf(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void Insert(int index, T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public bool Remove(T item)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void RemoveAt(int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            throw new NotImplementedException();
         }
     }
 
